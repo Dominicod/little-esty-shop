@@ -67,23 +67,6 @@ RSpec.configure do |config|
     stub_request(:get, "https://api.github.com/repos/Dominicod/little-esty-shop/collaborators").to_return(status: 200, body: payload_2.to_json)
     stub_request(:get, "https://api.github.com/repos/Dominicod/little-esty-shop/pulls?state=closed&per_page=100").to_return(status: 200, body: payload_3.to_json)
   end
-
-  def test_api_view
-    describe 'As a Admin or Merchant' do
-      it "I see Github information on every page" do
-        visit new_admin_merchant_path
-
-        within("footer") do
-          expect(page).to have_content("little-esty-shop")
-          expect(page).to have_content("rebeckahendricks")
-          expect(page).to have_content("Dominicod")
-          expect(page).to have_content("lcole37")
-          expect(page).to have_content("thayes87")
-          expect(page).to have_content("2")
-        end
-      end
-    end
-  end
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
