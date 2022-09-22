@@ -1,10 +1,22 @@
 require 'rails_helper'
 
 RSpec.describe 'As an admin,' do
-  # Method to test API
-  test_api_view
-
   before(:each) { mock_api_call }
+
+  describe 'As a Admin or Merchant' do
+    it "I see Github information on every page" do
+      visit new_admin_merchant_path
+
+      within("footer") do
+        expect(page).to have_content("little-esty-shop")
+        expect(page).to have_content("rebeckahendricks")
+        expect(page).to have_content("Dominicod")
+        expect(page).to have_content("lcole37")
+        expect(page).to have_content("thayes87")
+        expect(page).to have_content("2")
+      end
+    end
+  end
 
   describe "When I visit a merchant's admin show page" do
     it "I see the name of that merchant after clicking the merchant link on the index page" do
