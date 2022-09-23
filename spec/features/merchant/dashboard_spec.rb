@@ -1,9 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe "merchant dashboard" do
-  let(:bulk_discount_1) { @merchant1.bulk_discounts.create!(percentage: "20%", quantity_threshold: 5) }
-  let(:bulk_discount_2) { @merchant1.bulk_discounts.create!(percentage: "30%", quantity_threshold: 10) }
-
   before :each do
     mock_api_call
 
@@ -187,30 +184,6 @@ RSpec.describe "merchant dashboard" do
 
         within '#items_ready_to_ship' do
           expect(item2).to appear_before(item1)
-        end
-      end
-
-      it 'I see a link to view all my discounts, when I click this link I am then taken to my bulk discounts index page.
-          I see all of my bulk discounts including their percentage discount and quantity thresholds and each bulk discount
-          listed includes a link to its show page' do
-        visit merchant_dashboard_index_path(45)
-        bulk_discount_1
-        bulk_discount_2
-
-        expect(page).to have_link("All Discounts")
-        click_on "All Discounts"
-
-        expect(page.current_path).to eq merchant_bulk_discounts_path(45)
-
-        within("#bulk_discounts") do
-          within("#discount-#{bulk_discount_1.id}") do
-            expect(page).to have_content("20%")
-            expect(page).to have_content("5")
-            expect(page).to have_link("Bulk_Discount ##{bulk_discount_1.id}")
-
-            click_on "Bulk_Discount ##{bulk_discount_1.id}"
-          end
-          expect(page.current_path).to eq merchant_bulk_discount_path(45, bulk_discount_1)
         end
       end
     end
