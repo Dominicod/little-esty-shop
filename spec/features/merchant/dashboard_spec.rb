@@ -194,33 +194,23 @@ RSpec.describe "merchant dashboard" do
           I see all of my bulk discounts including their percentage discount and quantity thresholds and each bulk discount
           listed includes a link to its show page' do
         visit merchant_dashboard_index_path(45)
+        bulk_discount_1
+        bulk_discount_2
 
-        within("#discount_link") do
-          expect(page).to have_link("All Discounts")
-          click_on "All Discounts"
-        end
+        expect(page).to have_link("All Discounts")
+        click_on "All Discounts"
+
         expect(page.current_path).to eq merchant_bulk_discounts_path(45)
 
         within("#bulk_discounts") do
-          bulk_discount_1
-          bulk_discount_2
-
-          within("#discount-1") do
+          within("#discount-#{bulk_discount_1.id}") do
             expect(page).to have_content("20%")
             expect(page).to have_content("5")
-            expect(page).to have_link("Bulk_Discount #1")
+            expect(page).to have_link("Bulk_Discount ##{bulk_discount_1.id}")
 
-            click_on "Bulk_Discount #1"
+            click_on "Bulk_Discount ##{bulk_discount_1.id}"
           end
-          expect(page.current_path).to eq merchant_bulk_discount_path(1)
-
-          visit merchant_dashboard_index_path(45)
-          within("#discount-2") do
-            expect(page).to have_content("30%")
-            expect(page).to have_content("10")
-            expect(page).to have_link("Bulk_Discount #2")
-          end
-          expect(page.current_path).to eq merchant_bulk_discount_path(2)
+          expect(page.current_path).to eq merchant_bulk_discount_path(45, bulk_discount_1)
         end
       end
     end
