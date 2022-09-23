@@ -10,8 +10,6 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-# https://dbdiagram.io/d/632ccfe27b3d2034ff940919
-
 ActiveRecord::Schema.define(version: 2022_09_22_210539) do
 
   # These are extensions that must be enabled in order to support this database
