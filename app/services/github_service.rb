@@ -3,14 +3,14 @@ require 'json'
 
 class GithubService
   def self.request(path, auth_required)
-    if auth_required && path == '/collaborators'
+    if path == '/collaborators'
       response = HTTParty.get("https://api.github.com/repos/Dominicod/little-esty-shop#{path}", headers: {authorization: "Bearer " + ENV['token']})
       GithubService.parse(response)
     elsif path == '/pulls?state=closed&per_page=100'
-      response = HTTParty.get("https://api.github.com/repos/Dominicod/little-esty-shop#{path}")
+      response = HTTParty.get("https://api.github.com/repos/Dominicod/little-esty-shop#{path}", headers: {authorization: "Bearer " + ENV['token']})
       GithubService.parse(response)
     else
-      response = HTTParty.get("https://api.github.com/repos/Dominicod/little-esty-shop#{path}")
+      response = HTTParty.get("https://api.github.com/repos/Dominicod/little-esty-shop#{path}", headers: {authorization: "Bearer " + ENV['token']})
       GithubService.parse(response)
     end
   end

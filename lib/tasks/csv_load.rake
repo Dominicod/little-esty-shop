@@ -2,7 +2,7 @@ require 'csv'
 
 namespace :csv_load do
   desc 'All'
-  task all: [:customers, :invoices, :merchants, :items, :transactions, :invoice_items]
+  task all: [:customers, :invoices, :merchants, :items, :transactions, :invoice_items, :seed]
 
   desc "Load customers CSV into DB"
   task customers: :environment do
@@ -68,5 +68,10 @@ namespace :csv_load do
     ActiveRecord::Base.connection.reset_pk_sequence!('invoice_items')
     puts "Seeded Invoice_Items Table"
     puts "==================================="
+  end
+
+  desc "Seed the DB"
+  task seed: :environment do
+    Rake::Task['db:seed'].invoke
   end
 end
