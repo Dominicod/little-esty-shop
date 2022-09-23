@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "merchant bulk discounts index", type: :feature do
+RSpec.describe "merchant bulk discounts show page", type: :feature do
   let(:bulk_discount_1) { Merchant.find(1).bulk_discounts.create!(percentage: "20%", quantity_threshold: 5) }
   let(:bulk_discount_2) { Merchant.find(1).bulk_discounts.create!(percentage: "30%", quantity_threshold: 10) }
   before(:each) { mock_api_call }
