@@ -8,9 +8,10 @@ RSpec.describe "merchant bulk discounts index page", type: :feature do
   describe 'As a merchant, When I visit my bulk discounts index' do
     it 'I see all of my bulk discounts including their percentage discount and quantity
         thresholds and each bulk discount listed includes a link to its show page' do
-      visit merchant_dashboard_index_path(1)
       bulk_discount_1
       bulk_discount_2
+
+      visit merchant_dashboard_index_path(1)
 
       expect(page).to have_link("All Discounts")
       click_on "All Discounts"
@@ -32,9 +33,10 @@ RSpec.describe "merchant bulk discounts index page", type: :feature do
     it 'Then next to each bulk discount I see a link to delete it. When I click this link
         Then I am redirected back to the bulk discounts index page
         And I no longer see the discount listed' do
-      visit merchant_bulk_discounts_path(1)
       bulk_discount_1
       bulk_discount_2
+
+      visit merchant_bulk_discounts_path(1)
 
       within("#bulk_discounts") do
         within("#discount-#{bulk_discount_1.id}") do
@@ -48,6 +50,10 @@ RSpec.describe "merchant bulk discounts index page", type: :feature do
         expect(page.current_path).to eq merchant_bulk_discounts_path(1)
 
         expect(page).to_not have_content("#discount-#{bulk_discount_1.id}")
+      end
+
+      within("#flash_message") do
+        expect(page).to have_content("Bulk Discount deleted successfully")
       end
     end
   end
