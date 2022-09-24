@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
-  get '/', to: 'application#index'
+  get '/', to: 'application#welcome'
 
-  resources :merchants, only: [:show] do
+  resources :merchants, only: [:index, :show] do
     resources :dashboard, module: :merchant, only: [:index, :create]
     resources :items, module: :merchant
     resources :invoices, module: :merchant, only: [:index, :show, :update]

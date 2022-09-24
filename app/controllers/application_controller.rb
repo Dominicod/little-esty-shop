@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
       github_pulls: GithubFacade.github_info("/pulls?state=closed&per_page=100").count
     }
 
-  def index
+  def welcome
   end
 
   def github

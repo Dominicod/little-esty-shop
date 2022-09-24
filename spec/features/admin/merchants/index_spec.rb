@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'As an admin,' do
   before(:each) { mock_api_call }
 
-  describe 'When I visit the admin Merchants index ("/admin/merchants")' do
+  describe 'When I visit the admin Merchants index ("/admin/merchant")' do
     it 'Then I see the name of each merchant in the system' do
       visit admin_merchants_path
 
@@ -19,7 +19,7 @@ RSpec.describe 'As an admin,' do
       end
     end
 
-    it "When I click on the name of a merchant from the admin merchants index page, I am taken to that merchant's admin show page (/admin/merchants/merchant_id)" do
+    it "When I click on the name of a merchant from the admin merchant index page, I am taken to that merchant's admin show page (/admin/merchant/merchant_id)" do
       visit admin_merchants_path
 
       within("#merchant_names") do
@@ -47,7 +47,7 @@ RSpec.describe 'As an admin,' do
       end
     end
 
-    it "When I click this button, Then I am redirected back to the admin merchants index, and I see that the merchant's status has changed" do
+    it "When I click this button, Then I am redirected back to the admin merchant index, and I see that the merchant's status has changed" do
       visit admin_merchants_path
 
       within("#disabled_merchants") do
@@ -126,7 +126,7 @@ RSpec.describe 'As an admin,' do
       end
     end
 
-    it "I see the names of the top 5 merchants by total revenue generated" do
+    it "I see the names of the top 5 merchant by total revenue generated" do
       visit admin_merchants_path
 
       within("#top_five_merchants") do
@@ -189,7 +189,7 @@ RSpec.describe 'As an admin,' do
       end
     end
 
-    it "Then next to each of the 5 merchants by revenue I see the date with the most revenue for each merchant. ('Top selling date for <merchant name> was <date with most sales>')" do
+    it "Then next to each of the 5 merchant by revenue I see the date with the most revenue for each merchant. ('Top selling date for <merchant name> was <date with most sales>')" do
       visit admin_merchants_path
 
       within("#top_five_merchants") do
