@@ -22,7 +22,7 @@ RSpec.describe "Merchant bulk discounts show page", type: :feature do
 
       within("#bulk_discount") do
         within("#discount-#{bulk_discount_1.id}") do
-          expect(page).to have_link "Edit"
+          expect(page).to have_button "Edit"
           click_on "Edit"
         end
         expect(page.current_path).to eq edit_merchant_bulk_discount_path(1, bulk_discount_1)

@@ -25,6 +25,30 @@ RSpec.describe "Merchant bulk discounts edit page", type: :feature do
           expect(page).to have_content("20")
         end
       end
+
+      within("#flash_message") do
+        expect(page).to have_content("Bulk Discount updated successfully")
+      end
+    end
+
+    it "If I do not enter the correct information in the edit fields I am greeted by a sad path flash message" do
+      visit edit_merchant_bulk_discount_path(1, bulk_discount_1)
+
+      within("#edit_bulk_discount") do
+        expect(page).to have_field("bulk_discount_percentage")
+        expect(page).to have_field("bulk_discount_quantity_threshold")
+        fill_in "bulk_discount_percentage", with: "50%"
+        click_on "Update Bulk discount"
+      end
+      expect(page.current_url).to eq merchant_bulk_discount_path(1, bulk_discount_1)
+
+      within("#bulks_discount") do
+        expect(page).to_not have_content("50%")
+      end
+
+      within("#flash_message") do
+        expect(page).to have_content("Bulk Discount not updated: Missing required information")
+      end
     end
   end
 end
