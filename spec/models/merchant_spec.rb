@@ -36,7 +36,7 @@ RSpec.describe Merchant, type: :model do
     end
 
     describe "top_five_by_revenue" do
-      it "returns the top five merchants by revenue" do
+      it "returns the top five merchant by revenue" do
         klein = Merchant.find(2)
         schroeder = Merchant.find(1)
         willms = Merchant.find(3)
@@ -50,7 +50,7 @@ RSpec.describe Merchant, type: :model do
     end
 
     describe "best_day" do
-      it "Returns the date of a merchants best day by revenue" do
+      it "Returns the date of a merchant best day by revenue" do
         klein = Merchant.find(2)
         schroeder = Merchant.find(1)
         willms = Merchant.find(3)

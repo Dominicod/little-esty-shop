@@ -15,7 +15,7 @@ RSpec.describe 'As an admin,' do
         expect(page).to have_content "Admin Dashboard"
       end
 
-      it "I see a link to the admin merchants index (/admin/merchants), and I can click said link to go to the correct path" do
+      it "I see a link to the admin merchant index (/admin/merchant), and I can click said link to go to the correct path" do
         visit admin_invoice_path(Invoice.first)
 
         expect(page).to have_link("Dashboard")
@@ -23,7 +23,7 @@ RSpec.describe 'As an admin,' do
         expect(page.current_path).to eq admin_index_path
       end
 
-      it "I see a link to the admin merchants index (/admin/merchants), and I can click said link to go to the correct path" do
+      it "I see a link to the admin merchant index (/admin/merchant), and I can click said link to go to the correct path" do
         visit admin_invoice_path(Invoice.first)
 
         expect(page).to have_link("Merchants")
