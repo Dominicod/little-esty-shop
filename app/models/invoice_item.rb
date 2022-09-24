@@ -16,6 +16,7 @@ class InvoiceItem < ApplicationRecord
   end
 
   def discountable?
-    self.item.merchant.bulk_discounts.order(:quantity_threshold).limit(1).pluck(:quantity_threshold).shift <= self.quantity
+    merchant = self.item.merchant
+    merchant.bulk_discounts.minimum(:quantity_threshold) <= self.quantity
   end
 end
