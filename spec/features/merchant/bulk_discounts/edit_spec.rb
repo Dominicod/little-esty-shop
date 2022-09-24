@@ -11,6 +11,9 @@ RSpec.describe "Merchant bulk discounts edit page", type: :feature do
       visit edit_merchant_bulk_discount_path(1, bulk_discount_1)
 
       within("#edit_bulk_discount") do
+        expect(find("#bulk_discount_percentage").value).to eq "20%"
+        expect(find("#bulk_discount_quantity_threshold").value).to eq "5"
+
         expect(page).to have_field("bulk_discount_percentage")
         expect(page).to have_field("bulk_discount_quantity_threshold")
         fill_in "bulk_discount_percentage", with: "50%"
@@ -35,6 +38,9 @@ RSpec.describe "Merchant bulk discounts edit page", type: :feature do
       visit edit_merchant_bulk_discount_path(1, bulk_discount_1)
 
       within("#edit_bulk_discount") do
+        expect(find("#bulk_discount_percentage").value).to eq "20%"
+        expect(find("#bulk_discount_quantity_threshold").value).to eq "5"
+
         expect(page).to have_field("bulk_discount_percentage")
         expect(page).to have_field("bulk_discount_quantity_threshold")
         fill_in "bulk_discount_percentage", with: "50%"
