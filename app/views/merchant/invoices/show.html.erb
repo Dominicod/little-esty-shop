@@ -23,3 +23,4 @@
 <% end %>
 
 <p id="total_revenue">Total Revenue: $<%= '%.2f'% ((@invoice.total_revenue.to_f) / 100) %></p>
+<p id="discounted_total_revenue">Discounted Total Revenue: $<%= '%.2f'% ((@discounted_total_revenue) / 100) %></p>
