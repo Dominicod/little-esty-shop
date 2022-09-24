@@ -121,6 +121,14 @@ RSpec.describe 'Merchant Invoices Show Page' do
               end
             end
           end
+
+          it 'I see the total revenue for my merchant from this invoice (not including discounts)' do
+
+          end
+
+          it 'I see the total discounted revenue for my merchant from this invoice which includes bulk discounts in the calculation' do
+
+          end
         end
       end
     end
