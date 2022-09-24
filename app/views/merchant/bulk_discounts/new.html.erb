@@ -1,8 +1,9 @@
 <h1>Create new Bulk Discount</h1>
-<%= form_with model: [:merchant, @bulk_discount], id: "new_bulk_discount", local: true do |form| %>
+
+<%= form_with model: [@merchant, @bulk_discount], id: "new_bulk_discount", local: true do |form| %>
   <%= form.label :percentage %>
   <%= form.text_field :percentage, required: true, placeholder: "Desired Percentage.." %>
   <%= form.label :quantity_threshold %>
-  <%= form.text_field :quantity_threshold, required: true, placeholder: "Desired Quantity Threshold.." %>
+  <%= form.number_field :quantity_threshold, required: true, placeholder: "Desired Quantity Threshold.." %>
   <%= form.submit %>
 <% end %>

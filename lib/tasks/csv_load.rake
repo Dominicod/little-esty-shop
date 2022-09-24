@@ -10,7 +10,7 @@ namespace :csv_load do
       Customer.create!({id: row[:id], first_name: row[:first_name], last_name: row[:last_name], created_at: row[:created_at], updated_at: row[:updated_at]})
     end
     ActiveRecord::Base.connection.reset_pk_sequence!('customers')
-    puts "Seeded Customers Table"
+    puts "\n\e[32mSeeded Customers Table\e[0m"
     puts "==================================="
   end
 
@@ -22,7 +22,7 @@ namespace :csv_load do
       Invoice.create!({id: row[:id], customer_id: row[:customer_id], status: status[row[:status]], created_at: row[:created_at], updated_at: row[:updated_at]})
     end
     ActiveRecord::Base.connection.reset_pk_sequence!('invoices')
-    puts "Seeded Invoices Table"
+    puts "\n\e[32mSeeded Invoices Table\e[0m"
     puts "==================================="
   end
 
@@ -32,7 +32,7 @@ namespace :csv_load do
       Merchant.create!({id: row[:id], name: row[:name], created_at: row[:created_at], updated_at: row[:updated_at]})
     end
     ActiveRecord::Base.connection.reset_pk_sequence!('merchants')
-    puts "Seeded Merchants Table"
+    puts "\n\e[32mSeeded Merchants Table\e[0m"
     puts "==================================="
   end
 
@@ -42,7 +42,7 @@ namespace :csv_load do
       Item.create!({id: row[:id], name: row[:name], description: row[:description], unit_price: row[:unit_price], merchant_id: row[:merchant_id], created_at: row[:created_at], updated_at: row[:updated_at]})
     end
     ActiveRecord::Base.connection.reset_pk_sequence!('items')
-    puts "Seeded Items Table"
+    puts "\n\e[32mSeeded Items Table\e[0m"
     puts "==================================="
   end
 
@@ -54,7 +54,7 @@ namespace :csv_load do
       Transaction.create!({id: row[:id], invoice_id: row[:invoice_id], credit_card_number: row[:credit_card_number], credit_card_expiration_date: row[:credit_card_expiration_date], result: status[row[:result]], created_at: row[:created_at], updated_at: row[:updated_at]})
     end
     ActiveRecord::Base.connection.reset_pk_sequence!('transactions')
-    puts "Seeded Transactions Table"
+    puts "\n\e[32mSeeded Transactions Table\e[0m"
     puts "==================================="
   end
 
@@ -66,7 +66,7 @@ namespace :csv_load do
       InvoiceItem.create!({id: row[:id], item_id: row[:item_id], invoice_id: row[:invoice_id], quantity: row[:quantity], unit_price: row[:unit_price], status: status[row[:status]], created_at: row[:created_at], updated_at: row[:updated_at]})
     end
     ActiveRecord::Base.connection.reset_pk_sequence!('invoice_items')
-    puts "Seeded Invoice_Items Table"
+    puts "\n\e[32mSeeded Invoice_Items Table\e[0m"
     puts "==================================="
   end
 

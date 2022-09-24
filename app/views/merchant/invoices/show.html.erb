@@ -13,6 +13,7 @@
     <h4>Item Status: <%= invoice_item.status %> </h4>
       <div id="status_<%= "#{invoice_item.item.id}" %>">
         <%= form_with url: merchant_invoice_path(@merchant, @invoice), method: :patch do |form| %>
+          <%= form.hidden_field :invoice_item_id, value: invoice_item.id %>
           <%= form.select :status, ["pending", "packaged", "shipped"], selected: "#{invoice_item.status}" %>
           <%= form.hidden_field :item_id, value: invoice_item.item_id %>
           <%= form.submit "Update Item Status" %>

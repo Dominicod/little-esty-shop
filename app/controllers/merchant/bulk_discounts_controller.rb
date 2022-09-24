@@ -5,12 +5,26 @@ class Merchant::BulkDiscountsController < ApplicationController
   end
 
   def show
-    @bulk_discount = BulkDiscount.find(params[:id])
+    @merchant = current_merchant
+    @bulk_discount = current_discount
   end
 
   def new
     @merchant = current_merchant
     @bulk_discount = BulkDiscount.new
+  end
+
+  def edit
+    @merchant = current_merchant
+    @bulk_discount = current_discount
+  end
+
+  def update
+    if current_discount.update(bulk_discounts_params)
+      redirect_to merchant_bulk_discount_path(params[:merchant_id], params[:id]), notice: "Bulk Discount updated successfully"
+    else
+      redirect_to merchant_bulk_discount_path(params[:merchant_id], params[:id]), notice: "Bulk Discount not updated: Missing required information"
+    end
   end
 
   def create
@@ -23,17 +37,18 @@ class Merchant::BulkDiscountsController < ApplicationController
   end
 
   def destroy
-    if BulkDiscount.destroy(params[:id])
-      redirect_to merchant_bulk_discounts_path(current_merchant), notice: "Bulk Discount deleted successfully"
-    else
-      redirect_to merchant_bulk_discounts_path(current_merchant), notice: "Bulk Discount not deleted: Fatal Error"
-    end
+    BulkDiscount.destroy(params[:id])
+    redirect_to merchant_bulk_discounts_path(current_merchant), notice: "Bulk Discount deleted successfully"
   end
 
   private
 
   def current_merchant
     Merchant.find(params[:merchant_id])
+  end
+
+  def current_discount
+    BulkDiscount.find(params[:id])
   end
 
   def bulk_discounts_params
