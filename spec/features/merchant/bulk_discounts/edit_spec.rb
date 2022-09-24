@@ -38,12 +38,12 @@ RSpec.describe "Merchant bulk discounts edit page", type: :feature do
         expect(page).to have_field("bulk_discount_percentage")
         expect(page).to have_field("bulk_discount_quantity_threshold")
         fill_in "bulk_discount_percentage", with: "50%"
+        fill_in "bulk_discount_quantity_threshold", with: " "
         click_on "Update Bulk discount"
       end
       expect(page.current_path).to eq merchant_bulk_discount_path(1, bulk_discount_1)
 
       within("#bulk_discount") do
-        save_and_open_page
         expect(page).to_not have_content("50%")
       end
 
