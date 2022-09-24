@@ -26,7 +26,7 @@ namespace :csv_load do
     puts "==================================="
   end
 
-  desc "Load merchants CSV into DB"
+  desc "Load merchant CSV into DB"
   task merchants: :environment do
     CSV.foreach(Rails.root.join('db/data/merchants.csv'), headers: true, :header_converters => :symbol) do |row|
       Merchant.create!({id: row[:id], name: row[:name], created_at: row[:created_at], updated_at: row[:updated_at]})

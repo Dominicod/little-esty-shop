@@ -158,7 +158,7 @@ RSpec.describe "merchant dashboard" do
         end
       end
 
-      it 'Each invoice id is a link to my merchants invoice show page' do
+      it 'Each invoice id is a link to my merchant invoice show page' do
         visit merchant_dashboard_index_path(45)
 
         within "#item_47" do

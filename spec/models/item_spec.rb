@@ -89,7 +89,7 @@ RSpec.describe Item, type: :model do
     end
 
     describe '.ready_to_ship' do
-      it 'can list all of a merchants items that are ready to ship' do
+      it 'can list all of a merchant items that are ready to ship' do
         expect(Item.ready_to_ship(45)).to eq([@item2, @item3, @item2])
       end
     end

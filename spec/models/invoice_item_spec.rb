@@ -16,7 +16,7 @@ RSpec.describe InvoiceItem, type: :model do
 
   describe 'class methods' do
     describe '.for_merchant' do
-      it 'can list all of merchants specific items that are on a invoice' do
+      it 'can list all of merchant specific items that are on a invoice' do
         @merchant1 = Merchant.create!(id: 45, name:"Bob's Baskets")
         @merchant2 = Merchant.create!(id: 46, name:"Sue's Sandals")
 

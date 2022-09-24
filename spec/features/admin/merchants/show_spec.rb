@@ -58,5 +58,15 @@ RSpec.describe 'As an admin,' do
       click_link "Update Merchant"
       expect(page.current_path).to eq edit_admin_merchant_path(1)
     end
+
+    it "I see a link to show that merchants dashboard page" do
+      visit admin_merchant_path("1")
+
+      within("#merchant_name") do
+        expect(page).to have_link("Show Merchant")
+        click_link "Show Merchant"
+        expect(page.current_path).to eq merchant_dashboard_index_path("1")
+      end
+    end
   end
 end

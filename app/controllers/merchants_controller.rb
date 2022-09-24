@@ -1,3 +1,2 @@
 class MerchantsController < ApplicationController
-
 end

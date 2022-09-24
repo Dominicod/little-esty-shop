@@ -12,7 +12,7 @@ RSpec.describe "As an admin,", type: :feature do
       end
     end
 
-    it "I see a link to the admin merchants index (/admin/merchants), and I can click said link to go to the correct path" do
+    it "I see a link to the admin merchant index (/admin/merchant), and I can click said link to go to the correct path" do
       visit admin_index_path
 
       within("#admin_links") do
