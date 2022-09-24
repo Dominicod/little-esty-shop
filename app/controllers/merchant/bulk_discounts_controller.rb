@@ -37,11 +37,8 @@ class Merchant::BulkDiscountsController < ApplicationController
   end
 
   def destroy
-    if BulkDiscount.destroy(params[:id])
-      redirect_to merchant_bulk_discounts_path(current_merchant), notice: "Bulk Discount deleted successfully"
-    else
-      redirect_to merchant_bulk_discounts_path(current_merchant), notice: "Bulk Discount not deleted: Fatal Error"
-    end
+    BulkDiscount.destroy(params[:id])
+    redirect_to merchant_bulk_discounts_path(current_merchant), notice: "Bulk Discount deleted successfully"
   end
 
   private
