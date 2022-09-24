@@ -17,7 +17,7 @@ RSpec.describe "Merchant bulk discounts edit page", type: :feature do
         fill_in "bulk_discount_quantity_threshold", with: "20"
         click_on "Update Bulk discount"
       end
-      expect(page.current_url).to eq merchant_bulk_discount_path(1, bulk_discount_1)
+      expect(page.current_path).to eq merchant_bulk_discount_path(1, bulk_discount_1)
 
       within("#bulk_discount") do
         within("#discount-#{bulk_discount_1.id}") do
@@ -40,9 +40,10 @@ RSpec.describe "Merchant bulk discounts edit page", type: :feature do
         fill_in "bulk_discount_percentage", with: "50%"
         click_on "Update Bulk discount"
       end
-      expect(page.current_url).to eq merchant_bulk_discount_path(1, bulk_discount_1)
+      expect(page.current_path).to eq merchant_bulk_discount_path(1, bulk_discount_1)
 
-      within("#bulks_discount") do
+      within("#bulk_discount") do
+        save_and_open_page
         expect(page).to_not have_content("50%")
       end
 

@@ -15,14 +15,15 @@ class Merchant::BulkDiscountsController < ApplicationController
   end
 
   def edit
+    @merchant = current_merchant
     @bulk_discount = BulkDiscount.find(params[:id])
   end
 
   def update
     if BulkDiscount.update(bulk_discounts_params)
-      redirect_to merchant_bulk_discounts_path(params[:merchant_id], params[:id]), notice: "Bulk Discount updated successfully"
+      redirect_to merchant_bulk_discount_path(params[:merchant_id], params[:id]), notice: "Bulk Discount updated successfully"
     else
-      redirect_to merchant_bulk_discounts_path(params[:merchant_id], params[:id]), notice: "Bulk Discount not updated: Missing required information"
+      redirect_to merchant_bulk_discount_path(params[:merchant_id], params[:id]), notice: "Bulk Discount not updated: Missing required information"
     end
   end
 
