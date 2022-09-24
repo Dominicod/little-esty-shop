@@ -14,4 +14,8 @@ class InvoiceItem < ApplicationRecord
       .joins(item: [:invoice_items])
       .where("items.merchant_id = #{merchant_id}")
   end
+
+  def discountable?
+    self.item.merchant.bulk_discounts.order(:quantity_threshold).limit(1).pluck(:quantity_threshold).shift <= self.quantity
+  end
 end
