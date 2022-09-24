@@ -10,6 +10,7 @@ class Merchant::InvoicesController < ApplicationController
     @merchant = Merchant.find(params[:merchant_id])
     @invoice_items = @invoice.invoice_items.each do |invoice_item|
       if invoice_item.discountable?
+        binding.pry
         invoice_item.discount
       else
         invoice_item
