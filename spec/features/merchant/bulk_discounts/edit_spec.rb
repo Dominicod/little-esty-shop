@@ -6,16 +6,20 @@ RSpec.describe "Merchant bulk discounts edit page", type: :feature do
   before(:each) { mock_api_call }
 
   describe 'When I visit my bulk discount edit page' do
-    it 'I see that the discounts current attributes are pre-poluated in the form. When I change any/all of the information and click submit
-        Then I am redirected to the bulk discounts show page and I see that the discounts attributes have been updated' do
+    it 'I see that the discounts current attributes are pre-poluated in the form.' do
       visit edit_merchant_bulk_discount_path(1, bulk_discount_1)
 
       within("#edit_bulk_discount") do
         expect(find("#bulk_discount_percentage").value).to eq "20%"
         expect(find("#bulk_discount_quantity_threshold").value).to eq "5"
+      end
+    end
 
-        expect(page).to have_field("bulk_discount_percentage")
-        expect(page).to have_field("bulk_discount_quantity_threshold")
+    it 'When I change any/all of the information and click submit then I am redirected to the bulk discounts show page and
+        I see that the discounts attributes have been updated' do
+      visit edit_merchant_bulk_discount_path(1, bulk_discount_1)
+
+      within("#edit_bulk_discount") do
         fill_in "bulk_discount_percentage", with: "50%"
         fill_in "bulk_discount_quantity_threshold", with: "20"
         click_on "Update Bulk discount"

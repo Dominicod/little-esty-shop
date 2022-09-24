@@ -8,7 +8,13 @@ class Merchant::InvoicesController < ApplicationController
   def show
     @invoice = Invoice.find(params[:id])
     @merchant = Merchant.find(params[:merchant_id])
-    @invoice_items = @invoice.invoice_items
+    @invoice_items = @invoice.invoice_items.each do |invoice_item|
+      if invoice_item.discountable?
+        invoice_item.discount
+      else
+        invoice_item
+      end
+    end
   end
 
   def update
