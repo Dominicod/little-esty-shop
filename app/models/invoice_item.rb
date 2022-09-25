@@ -23,4 +23,12 @@ class InvoiceItem < ApplicationRecord
       merchant.bulk_discounts.minimum(:quantity_threshold) <= self.quantity
     end
   end
+
+  def owned_by_current_merchant?(merchant)
+    self.item.merchant == merchant
+  end
+
+  def item_name
+    self.item.name
+  end
 end

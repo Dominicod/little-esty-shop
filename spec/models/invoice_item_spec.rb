@@ -39,7 +39,10 @@ RSpec.describe InvoiceItem, type: :model do
         invoice_item = InvoiceItem.find(1)
         expect(invoice_item.discountable?).to eq true
 
-        invoice_item = InvoiceItem.find(5)
+        invoice_item = InvoiceItem.find(18)
+        expect(invoice_item.discountable?).to eq false
+
+        invoice_item = InvoiceItem.find(4)
         expect(invoice_item.discountable?).to eq false
       end
     end
