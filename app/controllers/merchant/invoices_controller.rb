@@ -8,18 +8,8 @@ class Merchant::InvoicesController < ApplicationController
   def show
     @invoice = Invoice.find(params[:id])
     @merchant = Merchant.find(params[:merchant_id])
-    @invoice_items = []
-    @invoice.invoice_items.each do |invoice_item|
-      if owned_by_current_merchant?(invoice_item, @merchant)
-        @invoice_items << invoice_item
-        # if invoice_item.discountable?
-        #   BulkDiscount.max_percentage(invoice_item.id, @merchant.id)
-        #   # binding.pry
-        # else
-        #   invoice_item
-        # end
-      end
-    end
+    @invoice_items = merchant_items
+    @total_revenue = total_revenue_by_merchant
   end
 
   def update
@@ -33,6 +23,28 @@ class Merchant::InvoicesController < ApplicationController
   private
   def owned_by_current_merchant?(invoice_item, merchant)
     invoice_item.item.merchant == merchant
+  end
+
+  def merchant_items
+    invoice_items = []
+    @invoice.invoice_items.map do |invoice_item|
+      if owned_by_current_merchant?(invoice_item, @merchant)
+        invoice_items << invoice_item
+        # if invoice_item.discountable?
+        #   BulkDiscount.max_percentage(invoice_item.id, @merchant.id)
+        #   # binding.pry
+        # else
+        #   invoice_item
+        # end
+      end
+    end
+    invoice_items
+  end
+
+  def total_revenue_by_merchant
+    @invoice_items.map do |invoice_item|
+      invoice_item.quantity * invoice_item.unit_price
+    end.sum
   end
 
   def invoice_item_params
