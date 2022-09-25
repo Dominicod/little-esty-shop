@@ -33,5 +33,15 @@ RSpec.describe InvoiceItem, type: :model do
         expect(described_class.for_merchant(@merchant1.id).first.item.name).to eq("Big basket")
       end
     end
+
+    describe '.discountable?' do
+      it 'Can determine if a invoice_item is discountable based on a merchants bulk discounts' do
+        invoice_item = InvoiceItem.find(1)
+        expect(invoice_item.discountable?).to eq true
+
+        invoice_item = InvoiceItem.find(5)
+        expect(invoice_item.discountable?).to eq false
+      end
+    end
   end
 end
