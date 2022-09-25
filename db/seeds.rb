@@ -13,8 +13,8 @@
 @merchant_1.bulk_discounts.create!(percentage: "25%", quantity_threshold: 2)
 @merchant_1.bulk_discounts.create!(percentage: "85%", quantity_threshold: 5)
 
-@merchant_2.bulk_discounts.create!(percentage: "50%", quantity_threshold: 20)
-@merchant_2.bulk_discounts.create!(percentage: "30%", quantity_threshold: 10)
+@merchant_2.bulk_discounts.create!(percentage: "50%", quantity_threshold: 5)
+@merchant_2.bulk_discounts.create!(percentage: "30%", quantity_threshold: 7)
 
 @merchant_3.bulk_discounts.create!(percentage: "20%", quantity_threshold: 5)
 @merchant_3.bulk_discounts.create!(percentage: "10%", quantity_threshold: 2)

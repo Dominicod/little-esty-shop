@@ -15,4 +15,24 @@ class Invoice < ApplicationRecord
   def total_revenue
     invoice_items.sum('invoice_items.quantity * invoice_items.unit_price')
   end
+
+  def merchant_items(merchant)
+    invoice_items = []
+    self.invoice_items.each do |invoice_item|
+      if invoice_item.owned_by_current_merchant?(merchant)
+        if invoice_item.discountable?
+          invoice_items << InvoiceItemDiscounted.new(invoice_item, merchant.id)
+        else
+          invoice_items << invoice_item
+        end
+      end
+    end
+    invoice_items
+  end
+
+  def total_revenue_by_merchant(merchant)
+    merchant_items(merchant).map do |invoice_item|
+      invoice_item.quantity * invoice_item.unit_price
+    end.sum
+  end
 end
