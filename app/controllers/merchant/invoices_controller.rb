@@ -29,13 +29,12 @@ class Merchant::InvoicesController < ApplicationController
     invoice_items = []
     @invoice.invoice_items.map do |invoice_item|
       if owned_by_current_merchant?(invoice_item, @merchant)
-        invoice_items << invoice_item
-        # if invoice_item.discountable?
-        #   BulkDiscount.max_percentage(invoice_item.id, @merchant.id)
-        #   # binding.pry
-        # else
-        #   invoice_item
-        # end
+        if invoice_item.discountable?
+          BulkDiscount.max_discount(invoice_item.id, @merchant.id)
+          invoice_items << invoice_item
+        else
+          invoice_items << invoice_item
+        end
       end
     end
     invoice_items
