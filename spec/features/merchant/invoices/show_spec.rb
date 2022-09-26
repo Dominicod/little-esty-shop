@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Merchant Invoices Show Page' do
   let(:merchant) { Merchant.first }
+  let(:merchant_2) { Merchant.find(2) }
   let(:invoice_1) { merchant.invoices.first }
   before(:each) { mock_api_call }
 
@@ -96,9 +97,23 @@ RSpec.describe 'Merchant Invoices Show Page' do
           it 'I see the total discounted revenue for my merchant from this invoice which includes bulk discounts in the calculation' do
             visit merchant_invoice_path(merchant, invoice_1)
 
-            # within("#discounted_total_revenue") do
-            #   expect(page).to have_content("$5218.97")
-            # end
+            within("#discounted_total_revenue") do
+              expect(page).to have_content("$2838.04")
+            end
+          end
+
+          it 'Next to each invoice item I see a link to the show page for the bulk discount that was applied' do
+            visit merchant_invoice_path(merchant_2, invoice_1)
+
+            within('#4') do
+              expect(page).to_not have_link('Show Discount Applied')
+              expect(page).to_not have_content('Item Discounted Price:')
+            end
+
+            within('#6') do
+              expect(page).to have_link('Show Discount Applied')
+              expect(page).to have_content('Item Discounted Price:')
+            end
           end
         end
       end
