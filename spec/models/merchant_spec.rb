@@ -14,6 +14,20 @@ RSpec.describe Merchant, type: :model do
     it { should validate_presence_of(:name) }
   end
 
+  describe 'class methods' do
+    describe '.enabled_merchants' do
+      it 'Returns enabled_merchants' do
+        expect(Merchant.enabled_merchants.count).to eq 0
+      end
+    end
+
+    describe '.disabled_merchants' do
+      it 'Returns disabled_merchants' do
+        expect(Merchant.disabled_merchants.count).to eq 30
+      end
+    end
+  end
+
   describe 'instance methods' do
     describe '.enabled_items' do
       it 'returns a list of all the items that are enabled for a specific merchant' do

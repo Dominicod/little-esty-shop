@@ -16,6 +16,12 @@ class Invoice < ApplicationRecord
     invoice_items.sum('invoice_items.quantity * invoice_items.unit_price')
   end
 
+  def total_discounted_revenue
+    unit_revenue = invoice_items.where("bulk_discount_id = '0'").sum('invoice_items.quantity * invoice_items.unit_price')
+    discount_revenue = invoice_items.where("bulk_discount_id != 0").sum('invoice_items.quantity * invoice_items.unit_price')
+    unit_revenue + discount_revenue
+  end
+
   def merchant_items(merchant)
     invoice_items = []
     self.invoice_items.each do |invoice_item|
@@ -29,6 +35,16 @@ class Invoice < ApplicationRecord
   def total_revenue_by_merchant(merchant)
     merchant_items(merchant).map do |invoice_item|
       invoice_item.quantity * invoice_item.unit_price
+    end.sum
+  end
+
+  def discounted_revenue_by_merchant(merchant)
+    merchant_items(merchant).map do |invoice_item|
+      if invoice_item.bulk_discount_id
+        invoice_item.quantity * invoice_item.discounted_unit_price
+      else
+        invoice_item.quantity * invoice_item.unit_price
+      end
     end.sum
   end
 end

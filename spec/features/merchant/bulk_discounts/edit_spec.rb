@@ -3,6 +3,8 @@ require 'rails_helper'
 RSpec.describe "Merchant bulk discounts edit page", type: :feature do
   let(:bulk_discount_1) { Merchant.find(1).bulk_discounts.create!(percentage: "20%", quantity_threshold: 5) }
   let(:bulk_discount_2) { Merchant.find(1).bulk_discounts.create!(percentage: "30%", quantity_threshold: 10) }
+  let(:bulk_discount_3) { Merchant.find(2).bulk_discounts.create!(percentage: "50%", quantity_threshold: 5) }
+  let(:bulk_discount_4) { Merchant.find(2).bulk_discounts.create!(percentage: "30%", quantity_threshold: 7) }
   before(:each) { mock_api_call }
 
   describe 'When I visit my bulk discount edit page' do
@@ -11,6 +13,13 @@ RSpec.describe "Merchant bulk discounts edit page", type: :feature do
 
       within("#edit_bulk_discount") do
         expect(find("#bulk_discount_percentage").value).to eq "20%"
+        expect(find("#bulk_discount_quantity_threshold").value).to eq "5"
+      end
+
+      visit edit_merchant_bulk_discount_path(2, bulk_discount_3)
+
+      within("#edit_bulk_discount") do
+        expect(find("#bulk_discount_percentage").value).to eq "50%"
         expect(find("#bulk_discount_quantity_threshold").value).to eq "5"
       end
     end
@@ -35,6 +44,22 @@ RSpec.describe "Merchant bulk discounts edit page", type: :feature do
 
       within("#flash_message") do
         expect(page).to have_content("Bulk Discount updated successfully")
+      end
+
+      visit edit_merchant_bulk_discount_path(2, bulk_discount_3)
+
+      within("#edit_bulk_discount") do
+        fill_in "bulk_discount_percentage", with: "50%"
+        fill_in "bulk_discount_quantity_threshold", with: "20"
+        click_on "Update Bulk discount"
+      end
+      expect(page.current_path).to eq merchant_bulk_discount_path(2, bulk_discount_3)
+
+      within("#bulk_discount") do
+        within("#discount-#{bulk_discount_3.id}") do
+          expect(page).to have_content("50%")
+          expect(page).to have_content("20")
+        end
       end
     end
 

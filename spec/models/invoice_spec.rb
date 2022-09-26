@@ -43,10 +43,35 @@ RSpec.describe Invoice, type: :model do
 
   describe '.total_revenue_by_merchant' do
     it 'Should return total revenue of the merchant' do
-      invoice = Invoice.find(3)
-      merchant = Merchant.find(2)
+      invoice_1 = Invoice.find(3)
+      merchant_1 = Merchant.find(2)
+      invoice_2 = Invoice.find(1)
+      merchant_2 = Merchant.find(2)
 
-      expect(invoice.total_revenue_by_merchant(merchant)).to eq 1269821
+      expect(invoice_1.total_revenue_by_merchant(merchant_1)).to eq 1269821
+      expect(invoice_2.total_revenue_by_merchant(merchant_2)).to eq 1282714
+    end
+  end
+
+  describe '.discounted_revenue_by_merchant' do
+    it 'Should return total discounted revenue of the merchant' do
+      invoice_1 = Invoice.find(3)
+      merchant_1 = Merchant.find(2)
+      invoice_2 = Invoice.find(1)
+      merchant_2= Merchant.find(2)
+
+      expect(invoice_1.discounted_revenue_by_merchant(merchant_1)).to eq 1269821
+      expect(invoice_2.discounted_revenue_by_merchant(merchant_2)).to eq 1027484
+    end
+  end
+
+  describe '.total_discounted_revenue' do
+    it 'Should return total discounted revenue based on the entire invoice' do
+      invoice_1 = Invoice.find(1)
+      invoice_2 = Invoice.find(2)
+
+      expect(invoice_1.total_discounted_revenue).to eq 1833201
+      expect(invoice_2.total_discounted_revenue).to eq 187274
     end
   end
 end

@@ -33,8 +33,4 @@ class InvoiceItem < ApplicationRecord
     percentage = (discount.percentage.to_f / 100)
     (unit_price - ((unit_price * percentage) / 100) * 100).to_i
   end
-
-  def item_name
-    self.item.name
-  end
 end
