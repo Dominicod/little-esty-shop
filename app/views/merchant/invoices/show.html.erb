@@ -7,7 +7,7 @@
 
 <% @invoice_items.each do |invoice_item| %>
   <div id=<%= "invoice_item-#{invoice_item.id}" %>>
-    <h3>Item Name: <%= invoice_item.item_name %></h3>
+    <h3>Item Name: <%= invoice_item.item.name %></h3>
     <p>Item Quantity: <%= invoice_item.quantity %>
     <p>Item Unit Price: $<%= '%.2f'% ((invoice_item.unit_price.to_f) / 100) %>
     <% if invoice_item.bulk_discount_id %>
