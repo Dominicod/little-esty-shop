@@ -1,6 +1,7 @@
 class InvoiceItem < ApplicationRecord
   belongs_to :item
   belongs_to :invoice
+  belongs_to :bulk_discount, optional: true
 
   validates :item_id, presence: true
   validates :invoice_id, presence: true
@@ -18,7 +19,7 @@ class InvoiceItem < ApplicationRecord
   def discountable?
     merchant = self.item.merchant
     if merchant.bulk_discounts.empty?
-      return false
+      false
     else
       merchant.bulk_discounts.minimum(:quantity_threshold) <= self.quantity
     end
@@ -26,6 +27,11 @@ class InvoiceItem < ApplicationRecord
 
   def owned_by_current_merchant?(merchant)
     self.item.merchant == merchant
+  end
+
+  def discount(discount)
+    percentage = (discount.percentage.to_f / 100)
+    (unit_price - ((unit_price * percentage) / 100) * 100).to_i
   end
 
   def item_name

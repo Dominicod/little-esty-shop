@@ -21,7 +21,7 @@ RSpec.describe 'Merchant Invoices Show Page' do
       it 'I see all of my items on the invoice including the name' do
         visit merchant_invoice_path(merchant, invoice_1)
 
-        within "div#1" do
+        within "#invoice_item-1" do
           expect(page).to have_content("Item Name: Item Qui Esse")
           expect(page).to have_content("Item Quantity: 5")
           expect(page).to have_content("Item Unit Price: $136.35")
@@ -39,7 +39,7 @@ RSpec.describe 'Merchant Invoices Show Page' do
       it 'I see that each invoice item status is a select field and I see that the invoice items current status is selected' do
         visit merchant_invoice_path(merchant, invoice_1)
 
-        within "div#1" do
+        within "#invoice_item-1" do
           within "#status_#{invoice_1.invoice_items.first.id}" do
             expect(page).to have_select('status'), 'packaged'
           end
@@ -50,7 +50,7 @@ RSpec.describe 'Merchant Invoices Show Page' do
         it 'I can select a new status for the Item' do
           visit merchant_invoice_path(merchant, invoice_1)
 
-          within "div#1" do
+          within "#invoice_item-1" do
             within "#status_#{invoice_1.invoice_items.first.id}" do
               select :shipped, from: 'status'
 
@@ -62,7 +62,7 @@ RSpec.describe 'Merchant Invoices Show Page' do
         it 'next to the select field I see a button to "Update Item Status"' do
           visit merchant_invoice_path(merchant, invoice_1)
 
-          within "div#1" do
+          within "#invoice_item-1" do
             within "#status_#{invoice_1.invoice_items.first.id}" do
               expect(page).to have_button('Update Item Status')
             end
@@ -73,7 +73,7 @@ RSpec.describe 'Merchant Invoices Show Page' do
           it 'I am taken back to the merchant invoice show page' do
             visit merchant_invoice_path(merchant, invoice_1)
 
-            within "div#1" do
+            within "#invoice_item-1" do
               within "#status_#{invoice_1.invoice_items.first.id}" do
                 select :shipped, from: 'status'
                 click_button 'Update Item Status'
@@ -85,7 +85,7 @@ RSpec.describe 'Merchant Invoices Show Page' do
           it 'I see that my Items status has now been updated' do
             visit merchant_invoice_path(merchant, invoice_1)
 
-            within "div#1" do
+            within "#invoice_item-1" do
               within "#status_#{invoice_1.invoice_items.first.id}" do
                 select :shipped, from: 'status'
                 click_button 'Update Item Status'
@@ -103,16 +103,16 @@ RSpec.describe 'Merchant Invoices Show Page' do
           end
 
           it 'Next to each invoice item I see a link to the show page for the bulk discount that was applied' do
-            visit merchant_invoice_path(merchant_2, invoice_1)
+            visit merchant_invoice_path(merchant, invoice_1)
 
-            within('#4') do
+            within('#invoice_item-7') do
               expect(page).to_not have_link('Show Discount Applied')
               expect(page).to_not have_content('Item Discounted Price:')
             end
 
-            within('#6') do
+            within('#invoice_item-1') do
               expect(page).to have_link('Show Discount Applied')
-              expect(page).to have_content('Item Discounted Price:')
+              expect(page).to have_content('Item Discounted Price: $68.17')
             end
           end
         end

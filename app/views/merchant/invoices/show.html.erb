@@ -6,13 +6,13 @@
 <p>Invoice Customer Name: <%= "#{@invoice.customer.first_name} #{@invoice.customer.last_name}" %></p>
 
 <% @invoice_items.each do |invoice_item| %>
-  <div id=<%= "#{invoice_item.item_id}" %>>
+  <div id=<%= "invoice_item-#{invoice_item.id}" %>>
     <h3>Item Name: <%= invoice_item.item_name %></h3>
     <p>Item Quantity: <%= invoice_item.quantity %>
     <p>Item Unit Price: $<%= '%.2f'% ((invoice_item.unit_price.to_f) / 100) %>
-    <% if invoice_item.instance_of?(InvoiceItemDiscounted) %>
-      <p>Item Discounted Price: $<%= '%.2f'% (invoice_item.discounted_price / 100) %></p>
-      <%= link_to "Show Discount Applied", merchant_bulk_discount_path(invoice_item.merchant_id, invoice_item.applied_discount) %>
+    <% if invoice_item.bulk_discount_id %>
+      <p>Item Discounted Price: $<%= '%.2f'% (invoice_item.discounted_unit_price.to_f / 100) %></p>
+      <%= link_to "Show Discount Applied", merchant_bulk_discount_path(params[:merchant_id], invoice_item.bulk_discount_id) %>
     <% end %>
     <h4>Item Status: <%= invoice_item.status %> </h4>
       <div id="status_<%= "#{invoice_item.item_id}" %>">
@@ -27,4 +27,4 @@
 <% end %>
 
 <p><strong id='total_revenue'>Total Revenue: $<%= '%.2f'% ((@total_revenue.to_f) / 100) %></strong></p>
-<p><strong id='discounted_total_revenue'>Discounted Total Revenue: $<%= '%.2f'% (50 / 100) %></strong></p>
+<p><strong id='discounted_total_revenue'>Discounted Total Revenue: $<%= '%.2f'% (@total_discounted_revenue / 100) %></strong></p>

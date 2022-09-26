@@ -35,9 +35,9 @@ RSpec.describe Invoice, type: :model do
       merchant_items = invoice.merchant_items(merchant)
 
       expect(merchant_items.count).to eq 3
-      expect(merchant_items[0].item).to eq InvoiceItem.find(17)
-      expect(merchant_items[1].item).to eq InvoiceItem.find(19)
-      expect(merchant_items[2].item).to eq InvoiceItem.find(20)
+      expect(merchant_items[0].item).to eq Item.find(14)
+      expect(merchant_items[1].item).to eq Item.find(5)
+      expect(merchant_items[2].item).to eq Item.find(4)
     end
   end
 
