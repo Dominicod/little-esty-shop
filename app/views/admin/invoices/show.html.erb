@@ -17,7 +17,11 @@
   <h3> Item: <%= invoice_item.item.name%> </h3>
   <p> Quantity: <%= invoice_item.quantity %> </p>
   <p> Unit Price: $<%= '%.2f'% ((invoice_item.item.unit_price.to_f) / 100)  %> </p>
+  <% if invoice_item.bulk_discount_id %>
+    <p>Item Discounted Price: $<%= '%.2f'% (invoice_item.discounted_unit_price.to_f / 100) %></p>
+  <% end %>
   <p> Status: <%= invoice_item.status %> </p>
 <% end %>
 <br>
 <h4>Total Invoice Revenue: $<%= '%.2f'% ((@invoice.total_revenue.to_f) / 100) %></h4>
+<p><strong id='discounted_total_revenue'>Discounted Total Revenue: $<%= '%.2f'% ((@invoice.total_discounted_revenue.to_f) / 100) %></strong></p>
