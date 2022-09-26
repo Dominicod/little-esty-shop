@@ -4,6 +4,7 @@ RSpec.describe InvoiceItem, type: :model do
   describe 'relationships' do
     it { should belong_to(:invoice) }
     it { should belong_to(:item) }
+    it { should belong_to(:bulk_discount).optional }
   end
 
   describe 'validations' do
@@ -12,6 +13,7 @@ RSpec.describe InvoiceItem, type: :model do
     it { should validate_presence_of(:quantity) }
     it { should validate_presence_of(:unit_price) }
     it { should validate_presence_of(:status) }
+    it { should_not validate_presence_of(:discounted_unit_price) }
   end
 
   describe 'class methods' do
@@ -44,6 +46,17 @@ RSpec.describe InvoiceItem, type: :model do
 
         invoice_item = InvoiceItem.find(4)
         expect(invoice_item.discountable?).to eq false
+      end
+    end
+
+    describe '.discount' do
+      it 'It can discount an invoice_item by a percentage' do
+        invoice_item_1 = InvoiceItem.find(1)
+        discount_1 = BulkDiscount.find(2)
+        invoice_item_2 = InvoiceItem.find(2)
+
+        expect(invoice_item_1.discount(discount_1)).to eq 204525
+        expect(invoice_item_2.discount(discount_1)).to eq 349860
       end
     end
   end
