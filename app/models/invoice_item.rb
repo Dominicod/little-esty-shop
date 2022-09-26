@@ -1,6 +1,7 @@
 class InvoiceItem < ApplicationRecord
   belongs_to :item
   belongs_to :invoice
+  belongs_to :bulk_discount, optional: true
 
   validates :item_id, presence: true
   validates :invoice_id, presence: true
@@ -18,7 +19,7 @@ class InvoiceItem < ApplicationRecord
   def discountable?
     merchant = self.item.merchant
     if merchant.bulk_discounts.empty?
-      return false
+      false
     else
       merchant.bulk_discounts.minimum(:quantity_threshold) <= self.quantity
     end
