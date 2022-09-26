@@ -51,12 +51,12 @@ class Merchant::BulkDiscountsController < ApplicationController
   end
 
   def destroy
-    if BulkDiscount.destroy(params[:id])
-      current_merchant.invoice_items.each do |invoice_item|
-        if current_discount.id == invoice_item.bulk_discount_id
-          invoice_item.update(discounted_unit_price: nil, bulk_discount_id: nil)
-        end
+    current_merchant.invoice_items.each do |invoice_item|
+      if current_discount.id == invoice_item.bulk_discount_id
+        invoice_item.update(discounted_unit_price: nil, bulk_discount_id: nil)
       end
+    end
+    if BulkDiscount.destroy(params[:id])
       redirect_to merchant_bulk_discounts_path(current_merchant), notice: "Bulk Discount deleted successfully"
     else
       redirect_to merchant_bulk_discounts_path(current_merchant), notice: "Bulk Discount not deleted: Error Occurred"
