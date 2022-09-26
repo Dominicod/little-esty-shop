@@ -55,8 +55,8 @@ RSpec.describe InvoiceItem, type: :model do
         discount_1 = BulkDiscount.find(2)
         invoice_item_2 = InvoiceItem.find(2)
 
-        expect(invoice_item_1.discount(discount_1)).to eq 204525
-        expect(invoice_item_2.discount(discount_1)).to eq 349860
+        expect(invoice_item_1.discount(discount_1)).to eq 2045
+        expect(invoice_item_2.discount(discount_1)).to eq 3498
       end
     end
   end
