@@ -105,12 +105,12 @@ RSpec.describe 'As an admin,' do
       visit admin_invoice_path(1)
 
       within("#discounted_total_revenue") do
-        expect(page).to have_content("$18332.01")
+        expect(page).to have_content("$15730.03")
       end
 
       visit admin_invoice_path(2)
       within("#discounted_total_revenue") do
-        expect(page).to have_content("$1872.74")
+        expect(page).to have_content("$4921.99")
       end
     end
   end

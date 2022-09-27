@@ -70,8 +70,8 @@ RSpec.describe Invoice, type: :model do
       invoice_1 = Invoice.find(1)
       invoice_2 = Invoice.find(2)
 
-      expect(invoice_1.total_discounted_revenue).to eq 1833201
-      expect(invoice_2.total_discounted_revenue).to eq 187274
+      expect(invoice_1.total_discounted_revenue).to eq 1573003
+      expect(invoice_2.total_discounted_revenue).to eq 492199
     end
   end
 end

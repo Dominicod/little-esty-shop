@@ -18,11 +18,7 @@ class InvoiceItem < ApplicationRecord
 
   def discountable?
     merchant = self.item.merchant
-    if merchant.bulk_discounts.empty?
-      false
-    else
-      merchant.bulk_discounts.minimum(:quantity_threshold) <= self.quantity
-    end
+    merchant.bulk_discounts.empty? ? false : merchant.bulk_discounts.minimum(:quantity_threshold) <= self.quantity
   end
 
   def owned_by_current_merchant?(merchant)
