@@ -56,5 +56,29 @@ RSpec.describe "merchant bulk discounts index page", type: :feature do
         expect(page).to have_content("Bulk Discount deleted successfully")
       end
     end
+
+    it 'I see a section with a header of "Upcoming Holidays"' do
+      bulk_discount_1
+      bulk_discount_2
+
+      visit merchant_bulk_discounts_path(1)
+
+      within("#upcoming_holidays") do
+      expect(page).to have_content "Upcoming Holidays"
+      end
+    end
+  end
+
+  it 'In this section the name and date of the next 3 upcoming US holidays are listed.' do
+    bulk_discount_1
+    bulk_discount_2
+
+    visit merchant_bulk_discounts_path(1)
+
+    within("#upcoming_holidays") do
+      expect(page).to have_content "Columbus Day"
+      expect(page).to have_content "Veterans Day"
+      expect(page).to have_content "Thanksgiving Day"
+    end
   end
 end

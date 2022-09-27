@@ -63,9 +63,22 @@ RSpec.configure do |config|
       }
     ]
 
+    payload_4 = [
+      {
+        name: 'Columbus Day'
+      },
+      {
+        name: 'Veterans Day'
+      },
+      {
+        name: 'Thanksgiving Day'
+      }
+    ]
+
     stub_request(:get, "https://api.github.com/repos/Dominicod/little-esty-shop").to_return(status: 200, body: payload_1.to_json)
     stub_request(:get, "https://api.github.com/repos/Dominicod/little-esty-shop/collaborators").to_return(status: 200, body: payload_2.to_json)
     stub_request(:get, "https://api.github.com/repos/Dominicod/little-esty-shop/pulls?state=closed&per_page=100").to_return(status: 200, body: payload_3.to_json)
+    stub_request(:get, "https://date.nager.at/api/v3/NextPublicHolidays/US").to_return(status: 200, body: payload_4.to_json)
   end
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
