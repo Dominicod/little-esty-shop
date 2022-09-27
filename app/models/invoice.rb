@@ -17,34 +17,22 @@ class Invoice < ApplicationRecord
   end
 
   def total_discounted_revenue
-    unit_revenue = invoice_items.where("bulk_discount_id = '0'").sum('invoice_items.quantity * invoice_items.unit_price')
-    discount_revenue = invoice_items.where("bulk_discount_id != 0").sum('invoice_items.quantity * invoice_items.unit_price')
+    unit_revenue = invoice_items.where("bulk_discount_id IS NULL").sum('invoice_items.quantity * invoice_items.unit_price')
+    discount_revenue = invoice_items.where("bulk_discount_id != 0").sum('invoice_items.quantity * invoice_items.discounted_unit_price')
     unit_revenue + discount_revenue
   end
 
   def merchant_items(merchant)
-    invoice_items = []
-    self.invoice_items.each do |invoice_item|
-      if invoice_item.owned_by_current_merchant?(merchant)
-        invoice_items << invoice_item
-      end
-    end
-    invoice_items
+    invoice_items.joins(:item).where('items.merchant_id = ?', merchant.id)
   end
 
   def total_revenue_by_merchant(merchant)
-    merchant_items(merchant).map do |invoice_item|
-      invoice_item.quantity * invoice_item.unit_price
-    end.sum
+    merchant_items(merchant).sum('invoice_items.quantity * invoice_items.unit_price')
   end
 
   def discounted_revenue_by_merchant(merchant)
-    merchant_items(merchant).map do |invoice_item|
-      if invoice_item.bulk_discount_id
-        invoice_item.quantity * invoice_item.discounted_unit_price
-      else
-        invoice_item.quantity * invoice_item.unit_price
-      end
-    end.sum
+    unit_revenue = self.merchant_items(merchant).where("bulk_discount_id IS NULL").sum('invoice_items.quantity * invoice_items.unit_price')
+    discount_revenue = self.merchant_items(merchant).where("bulk_discount_id != 0").sum('invoice_items.quantity * invoice_items.discounted_unit_price')
+    unit_revenue + discount_revenue
   end
 end
