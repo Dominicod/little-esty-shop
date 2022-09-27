@@ -21,10 +21,6 @@ class InvoiceItem < ApplicationRecord
     merchant.bulk_discounts.empty? ? false : merchant.bulk_discounts.minimum(:quantity_threshold) <= self.quantity
   end
 
-  def owned_by_current_merchant?(merchant)
-    self.item.merchant == merchant
-  end
-
   def discount(discount)
     percentage = (discount.percentage.to_f / 100)
     (unit_price - ((unit_price * percentage) / 100) * 100).to_i
